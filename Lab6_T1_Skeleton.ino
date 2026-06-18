@@ -56,7 +56,7 @@ void getState(){
 /*Modify this function*/ 
 double getPosition() {
   // Calculate the current position based on encoder count
-  position = float(encoderCount)*360.0/1000.0; // Replace 1000.0 with the actual counts per revolution
+  position = float(encoderCount)*360.0/170; // Replace 1000.0 with the actual counts per revolution
 
   if (position<0)
   {position = position + 360; // Ensure position is positive
@@ -89,24 +89,27 @@ void setup() {
 }
 
 void loop() {
+
+  /*Set a speed for your motor*/
+  analogWrite(MOTOR_ENA,112);
+
  if (Serial.available() > 0) {
         command = Serial.readStringUntil('\n'); // Read the incoming command
         command.trim(); // Remove any leading or trailing whitespace
         if (command == "F") {
              /*Forward rotation direction*/
-              digitalWrite(MOTOR_IN1, HIGH);
-              digitalWrite(MOTOR_IN2, LOW);
-             /*Set a speed for your motor*/
-              analogWrite(MOTOR_ENA,128);
-
+              digitalWrite(MOTOR_IN1, LOW);
+              digitalWrite(MOTOR_IN2, HIGH);
         } 
         else if (command == "B") {
              /*Backward rotation direction*/
+              digitalWrite(MOTOR_IN1, HIGH);
+              digitalWrite(MOTOR_IN2, LOW);
+        }
+        else if (command == "") {
+             /*Stop*/
               digitalWrite(MOTOR_IN1, LOW);
-              digitalWrite(MOTOR_IN2, HIGH);
-             /*Set a speed for your motor*/
-              analogWrite(MOTOR_ENA,128);
-
+              digitalWrite(MOTOR_IN2, LOW);
         }
         } 
 
@@ -116,6 +119,11 @@ void loop() {
    /* Reset encoder count*/
   if (position > 360 || position < 0) {
     encoderCount = 0;
+    digitalWrite(MOTOR_IN1, LOW);
+    digitalWrite(MOTOR_IN2, LOW);
+    delay(1000);
+    digitalWrite(MOTOR_IN1, LOW);
+    digitalWrite(MOTOR_IN2, HIGH);
   } 
 
 }
