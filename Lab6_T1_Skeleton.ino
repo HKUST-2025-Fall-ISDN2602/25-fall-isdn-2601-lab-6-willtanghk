@@ -86,7 +86,8 @@ void setup() {
 void loop() {
 
   /*Set a speed for your motor*/
-  analogWrite(MOTOR_ENA,112);
+  analogWrite(MOTOR_ENA,96);
+  //analogWrite(MOTOR_ENA,112);
 
  if (Serial.available() > 0) {
         command = Serial.readStringUntil('\n'); // Read the incoming command
@@ -114,11 +115,13 @@ void loop() {
    /* Reset encoder count*/
   if (position > 360 || position < 0) {
     encoderCount = 0;
+    /*
     digitalWrite(MOTOR_IN1, LOW);
     digitalWrite(MOTOR_IN2, LOW);
     delay(1000);
     digitalWrite(MOTOR_IN1, LOW);
     digitalWrite(MOTOR_IN2, HIGH);
+    */
   } 
 
 }
