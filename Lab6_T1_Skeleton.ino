@@ -74,17 +74,12 @@ void setup() {
 /* pin mode for pins connected with L298N driver  */
   pinMode(MOTOR_IN1, OUTPUT);  // Set IN1 as an output pin
   pinMode(MOTOR_IN2, OUTPUT);  // Set IN2 as an output pin
-  pinMode(ENCODER_PINA, INPUT);  // Set A as an input pin
+  //pinMode(ENCODER_PINA, INPUT);  // Set A as an input pin
   pinMode(ENCODER_PINB, INPUT);  // Set B as an input pin
 
 // encoder A pin mode for interrupt
   pinMode(ENCODER_PINA, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(ENCODER_PINA), encoderInterrupt, CHANGE);
-
-/*encoder B pin mode */   
-  //???
-/* set up baud rate  */
-  //???
 
 }
 
